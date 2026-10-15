@@ -11,6 +11,8 @@
 *{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 "Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif}main{max-width:1200px;margin:0 auto;padding:24px 16px 48px}h1{font-size:24px;margin:0 0 4px;letter-spacing:.02em}.sub{color:var(--muted);margin:0 0 16px}.top{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-bottom:16px}.prog{flex:1;min-width:240px}.bar{height:10px;background:var(--line);border-radius:5px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}.stat{font-size:13px;color:var(--muted);margin-top:4px}.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-bottom:10px}.legend span::before{content:"";display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px;background:var(--c)}.wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}.inner{min-width:2300px}.cc{flex:0 0 290px;padding:8px;border-left:1px solid var(--line)}.cc textarea{min-height:96px}.hh{font-weight:600;padding:8px 12px}.drop{border:2px dashed var(--line);border-radius:8px;padding:10px;font-size:12px;color:var(--muted);text-align:center}.row{display:flex;border-bottom:1px solid var(--line)}.row:last-child{border-bottom:0}.info{flex:0 0 280px;position:sticky;left:0;z-index:2;background:var(--surface);padding:10px 12px;border-right:1px solid var(--line)}.info b{display:block;font-weight:600}.meta{font-size:12px;color:var(--muted)}.chk{display:flex;gap:12px;margin-top:6px;font-size:12px}.chk label{display:flex;align-items:center;gap:4px}.track{position:relative;flex:1;min-height:70px}.hdr .info{font-weight:600;padding:8px 12px}.hdr .track{min-height:36px}.m{position:absolute;top:0;bottom:0;border-left:1px solid var(--line);font-size:12px;color:var(--muted);padding:8px 6px}.row:not(.hdr) .m{padding:0;font-size:0}.seg{position:absolute;height:14px;border-radius:7px;background:var(--c)}.pub{position:absolute;width:16px;height:16px;transform:rotate(45deg);background:var(--c4);border-radius:3px}.lbl{position:absolute;font-size:12px;font-weight:600;color:var(--ink);white-space:nowrap}.row.done{background:var(--sel)}.row.done .info{background:var(--sel)}.row.next .info{box-shadow:inset 4px 0 0 var(--c3)}.tag{display:inline-block;font-size:11px;padding:0 6px;border:1px solid var(--line);border-radius:9px;margin-left:6px;color:var(--muted)}.today{position:absolute;top:0;bottom:0;width:2px;background:#d4493c;z-index:1}.note{margin-top:16px;font-size:13px;color:var(--muted)}h2{font-size:18px;margin:28px 0 12px}.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:12px}.card h3{margin:0 0 2px;font-size:16px}.two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:10px}@media(max-width:700px){.two{grid-template-columns:1fr}}.card label{display:block;font-size:13px;font-weight:600;margin-bottom:4px}textarea{width:100%;min-height:120px;resize:vertical;font:inherit;font-size:14px;padding:8px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink)}textarea:disabled{opacity:1}.imgs{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}.imgs img{height:90px;max-width:170px;object-fit:cover;border-radius:6px;border:1px solid var(--line)}.cta a,.meta a{color:var(--accent)}.image-note{font-size:12px;color:var(--muted)}.status-error{color:#bf3b32!important}.status-ok{color:var(--accent)!important}
 
 /* 管理者工具 */
+.mfa-panel{flex-basis:100%;padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+.mfa-panel p{margin:6px 0}.mfa-panel img{display:block;margin:10px 0;background:#fff;padding:5px;object-fit:contain}.mfa-panel input{max-width:145px}.mfa-panel code{overflow-wrap:anywhere}
 .auth-panel{display:flex;flex-wrap:wrap;align-items:center;gap:9px;padding:12px 14px;margin:0 0 16px;background:var(--surface);border:1px solid var(--line);border-radius:10px}
 .auth-panel input{font:inherit;min-width:185px;max-width:260px;padding:7px 9px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink)}
 .auth-panel button,.admin-btn{font:inherit;font-size:13px;cursor:pointer;border:1px solid var(--accent);background:var(--accent);color:var(--bg);border-radius:6px;padding:7px 12px}
@@ -37,6 +39,12 @@ body.is-admin textarea:not(:disabled){background:var(--surface);border-color:var
   <strong>管理者專區</strong>
   <span id="authLoggedOut"><label for="adminEmail">Email</label> <input id="adminEmail" type="email" autocomplete="username" placeholder="管理者 Email"> <label for="adminPassword">密碼</label> <input id="adminPassword" type="password" autocomplete="current-password" placeholder="登入密碼"> <button id="loginBtn" type="button">登入</button></span>
   <span id="authLoggedIn" hidden><span id="adminIdentity"></span> <button id="logoutBtn" type="button" class="ghost">登出</button></span>
+  <div id="mfaPanel" class="mfa-panel" hidden>
+    <strong id="mfaTitle">管理者雙重驗證</strong>
+    <p id="mfaHelp" class="small-note"></p>
+    <div id="mfaEnroll" hidden><button type="button" id="mfaEnrollBtn" class="admin-btn">開始綁定驗證器</button><div id="mfaSetup" hidden><img id="mfaQr" alt="驗證器綁定 QR Code" width="180" height="180"><p class="small-note">無法掃描時，手動輸入密鑰：<code id="mfaSecret"></code>（請勿分享）</p></div></div>
+    <div id="mfaVerify" hidden><label for="mfaCode">驗證器六位數代碼</label> <input id="mfaCode" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" placeholder="123456"> <button id="mfaVerifyBtn" type="button" class="admin-btn">驗證</button></div>
+  </div>
   <span id="authMsg" class="auth-msg" role="status" aria-live="polite">一般訪客可直接查看，管理者登入後才可編輯。</span>
 </div>
 <div class="legend"><span style="--c:var(--c1)">企劃／文案撰寫（發文前 5 週 → 3 週）</span><span style="--c:var(--c2)">素材製作（4 週 → 1.5 週）</span><span style="--c:var(--c3)">內部／萬家福確認（10 → 3 天前）</span><span style="--c:var(--c4)">◆ 發文日</span></div>
@@ -94,7 +102,7 @@ html+=`<div class="row" id="r${i}"><div class="info"><b>${p[0].replace(/-/g,"/")
 cards.innerHTML=P.map((p,i)=>{const [label,url]=X[i][1].split("|");return `<section class="card" id="c${i}"><h3>${p[0].replace(/-/g,"/")} ${esc(p[1])}</h3><div class="meta">規劃方向：${esc(X[i][0])}</div><div class="two"><div><label>文案</label><textarea disabled data-i="${i}" data-k="copy" placeholder="尚未提供文案"></textarea><div class="admin-tools"><button class="admin-btn" data-action="save-copy" data-i="${i}">儲存文案</button></div></div><div><label>素材（雲端連結或說明）</label><textarea disabled data-i="${i}" data-k="mat" placeholder="尚未提供素材說明"></textarea><div class="admin-tools"><button class="admin-btn" data-action="save-mat" data-i="${i}">儲存素材說明</button></div><div class="imgs"></div><div class="admin-tools"><label class="admin-btn" for="cardfile${i}">上傳圖片</label><input type="file" id="cardfile${i}" data-i="${i}" accept="image/jpeg,image/png,image/webp" multiple hidden></div></div></div><div class="meta cta">CTA：${url?`<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a>`:esc(label)}</div></section>`}).join("");}
 function imagePaths(s){return Array.isArray(s.imgs)?s.imgs.filter(x=>typeof x==="string"&&x.length>0):[]}
 function imageHtml(paths,i){return paths.map((path,j)=>{if(!client)return "";const {data}=client.storage.from(STORAGE_BUCKET).getPublicUrl(path);const url=data.publicUrl;return `<span class="image-item"><a href="${esc(url)}" target="_blank" rel="noopener noreferrer"><img src="${esc(url)}" loading="lazy" alt="貼文素材圖片"></a>${isAdmin?`<button class="admin-btn ghost" data-action="remove-image" data-i="${i}" data-j="${j}" type="button">移除圖片</button>`:""}</span>`}).join("")}
-let isAdmin=false,adminUser=null,authGeneration=0,loadingCounter=0;
+let isAdmin=false,adminUser=null,authGeneration=0,loadingCounter=0,mfaFactorId=null,mfaPendingEnrollment=false;
 const authMsg=document.getElementById("authMsg");
 function say(message,error=false){authMsg.textContent=message;authMsg.classList.toggle("status-error",error)}
 function updateAccess(){document.body.classList.toggle("is-admin",isAdmin);document.getElementById("authLoggedOut").hidden=!!adminUser;document.getElementById("authLoggedIn").hidden=!adminUser;document.getElementById("adminIdentity").textContent=adminUser?`已登入：${adminUser.email||"管理者"}${isAdmin?"（可編輯）":"（沒有編輯權限）"}`:"";document.querySelectorAll('.chk input').forEach(el=>el.disabled=!isAdmin);document.querySelectorAll('textarea').forEach(el=>el.disabled=!isAdmin);if(loaded)paint();}
@@ -104,19 +112,79 @@ const copy=s.copy||"",mat=s.mat||"";document.querySelectorAll(`textarea[data-i="
 if(next>=0)document.getElementById("r"+next).classList.add("next");document.getElementById("pb").style.width=(count/39*100)+"%";document.getElementById("st").textContent=loaded?`已發文 ${done}/13　整體進度 ${Math.round(count/39*100)}%`+(next>=0?`　下一檔：${P[next][0].replace(/-/g,"/")} ${P[next][1]}`:"　全部完成"):"等待雲端資料…"}
 function setStatus(message,error=false){mode.textContent=message;mode.classList.toggle("status-error",error);mode.classList.toggle("status-ok",!error)}
 async function loadProgress(){if(!client)return;const n=++loadingCounter;const {data,error}=await client.from("meta_post_progress").select("id,copy_done,asset_done,published,copy,mat,imgs").order("id");if(n!==loadingCounter)return;if(error){console.error(error);setStatus("讀取失敗：請確認資料表欄位及公開讀取權限",true);return}const next={};for(const row of data){next[row.id]={w:row.copy_done,a:row.asset_done,p:row.published,copy:row.copy||"",mat:row.mat||"",imgs:row.imgs||[]}}st=next;loaded=true;paint();setStatus(isAdmin?"雲端資料已載入｜管理者模式":"雲端資料已載入｜唯讀模式")}
-async function verifyAdmin(user){const gen=++authGeneration;adminUser=user||null;isAdmin=false;updateAccess();if(!user){say("一般訪客可直接查看，管理者登入後才可編輯。");return}const {data,error}=await client.from("meta_admins").select("user_id").eq("user_id",user.id).maybeSingle();if(gen!==authGeneration)return;if(error){console.error(error);say("登入成功，但無法確認管理者權限："+error.message,true)}else if(!data){say("已登入，但此帳號未列入管理者名單。",true)}else{isAdmin=true;say("管理者驗證成功，可以直接編輯貼文、素材及進度。")}updateAccess()}
+function showMfa(mode){
+ const panel=document.getElementById("mfaPanel"),enroll=document.getElementById("mfaEnroll"),verify=document.getElementById("mfaVerify");
+ panel.hidden=!mode;enroll.hidden=mode!=="enroll";verify.hidden=!mode;
+ document.getElementById("mfaSetup").hidden=!mfaPendingEnrollment;
+ document.getElementById("mfaTitle").textContent=mode==="enroll"?"首次使用：綁定驗證器":"管理者雙重驗證";
+ document.getElementById("mfaHelp").textContent=mode==="enroll"?"請先使用驗證器 App 掃描 QR Code，再輸入 App 顯示的六位數代碼。完成前不開放編輯。":mode?"請輸入驗證器 App 顯示的六位數代碼，驗證成功後才能編輯。":"";
+}
+async function verifyAdmin(user){
+ const gen=++authGeneration;adminUser=user||null;isAdmin=false;mfaFactorId=null;mfaPendingEnrollment=false;showMfa(null);updateAccess();
+ if(!user){say("一般訪客可直接查看，管理者登入後才可編輯。");return}
+ try{
+  const {data,error}=await client.from("meta_admins").select("user_id").eq("user_id",user.id).maybeSingle();
+  if(gen!==authGeneration)return;
+  if(error)throw error;
+  if(!data){say("已登入，但此帳號未列入管理者名單。",true);return}
+  const {data:aal,error:aalError}=await client.auth.mfa.getAuthenticatorAssuranceLevel();
+  if(aalError)throw aalError;
+  if(gen!==authGeneration)return;
+  if(aal.currentLevel==="aal2"){
+   isAdmin=true;showMfa(null);say("MFA 驗證成功，可以編輯貼文、素材及進度。");updateAccess();return;
+  }
+  const {data:factors,error:factorsError}=await client.auth.mfa.listFactors();
+  if(factorsError)throw factorsError;
+  if(gen!==authGeneration)return;
+  const verified=(factors.totp||[]).find(f=>f.status==="verified");
+  if(verified){mfaFactorId=verified.id;showMfa("verify");say("請完成驗證器第二階段驗證，才能編輯。");}
+  else{showMfa("enroll");say("此管理者帳號尚未綁定驗證器，請先完成綁定。");}
+  updateAccess();
+ }catch(error){if(gen!==authGeneration)return;console.error(error);say("無法確認管理者 MFA 權限："+error.message,true);updateAccess()}
+}
+async function enrollMfa(){
+ if(!adminUser||isAdmin)return;
+ const btn=document.getElementById("mfaEnrollBtn");btn.disabled=true;
+ try{
+  const {data,error}=await client.auth.mfa.enroll({factorType:"totp",friendlyName:"綠綠茶管理者驗證器"});
+  if(error)throw error;
+  mfaFactorId=data.id;mfaPendingEnrollment=true;
+  const qr=data.totp?.qr_code||"";
+  if(!qr.startsWith("data:image/svg+xml")&&!qr.startsWith("data:image/png"))throw new Error("QR Code 格式不正確");
+  document.getElementById("mfaQr").src=qr;
+  document.getElementById("mfaSecret").textContent=data.totp?.secret||"";
+  showMfa("enroll");document.getElementById("mfaVerify").hidden=false;
+  say("請掃描 QR Code，然後輸入六位數驗證碼。");
+ }catch(error){console.error(error);say("驗證器綁定失敗："+error.message,true)}finally{btn.disabled=false}
+}
+async function verifyMfa(){
+ if(!adminUser||!mfaFactorId)return;
+ const code=document.getElementById("mfaCode").value.trim();
+ if(!/^\d{6}$/.test(code)){say("請輸入六位數驗證碼。",true);return}
+ const btn=document.getElementById("mfaVerifyBtn");btn.disabled=true;
+ try{
+  const {error}=await client.auth.mfa.challengeAndVerify({factorId:mfaFactorId,code});
+  if(error)throw error;
+  document.getElementById("mfaCode").value="";
+  document.getElementById("mfaSecret").textContent="";document.getElementById("mfaQr").removeAttribute("src");
+  await verifyAdmin(adminUser);
+ }catch(error){console.error(error);say("驗證失敗："+error.message,true)}finally{btn.disabled=false}
+}
 function mustAdmin(){if(!isAdmin){say("請先以已授權的管理者帳號登入。",true);return false}return true}
 async function updatePost(i,fields){if(!mustAdmin())return false;const {error}=await client.from("meta_post_progress").update({...fields,updated_at:new Date().toISOString()}).eq("id",i);if(error){console.error(error);say("儲存失敗："+error.message,true);return false}say(`第 ${i+1} 篇貼文已儲存。`);await loadProgress();return true}
 async function uploadFiles(i,files){if(!mustAdmin()||!files.length)return;const current=imagePaths(st[i]||{});const added=[];for(const file of files){if(!["image/jpeg","image/png","image/webp"].includes(file.type)){say("僅接受 JPG、PNG、WebP 圖片。",true);break}if(file.size>10*1024*1024){say("圖片不得超過 10 MB。",true);break}const ext=({"image/jpeg":"jpg","image/png":"png","image/webp":"webp"})[file.type];const name=`post-${String(i+1).padStart(2,"0")}/${crypto.randomUUID()}.${ext}`;say(`正在上傳 ${file.name}…`);const {error}=await client.storage.from(STORAGE_BUCKET).upload(name,file,{contentType:file.type,upsert:false});if(error){console.error(error);say("圖片上傳失敗："+error.message,true);break}added.push(name)}if(added.length){const ok=await updatePost(i,{imgs:[...current,...added]});if(!ok)say("圖片已上傳，但資料庫未能儲存路徑；請勿重複上傳，先檢查權限。",true)}}
 async function removeImage(i,j){if(!mustAdmin())return;const paths=imagePaths(st[i]||{});const path=paths[j];if(!path||!confirm("確定要從貼文移除這張圖片？此操作也會刪除 Storage 中的檔案。"))return;const {error}=await client.storage.from(STORAGE_BUCKET).remove([path]);if(error){say("無法刪除圖片："+error.message,true);return}const ok=await updatePost(i,{imgs:paths.filter((_,idx)=>idx!==j)});if(!ok)say("Storage 圖片已刪除，但貼文路徑更新失敗，請稍後重試。",true)}
-function bindControls(){document.getElementById("loginBtn").addEventListener("click",async()=>{const email=document.getElementById("adminEmail").value.trim(),password=document.getElementById("adminPassword").value; if(!email||!password){say("請輸入 Email 和密碼。",true);return}const btn=document.getElementById("loginBtn");btn.disabled=true;say("登入中…");try{const {error}=await client.auth.signInWithPassword({email,password});if(error){say("登入失敗："+error.message,true)}else{document.getElementById("adminPassword").value="";say("登入成功，正在驗證管理者權限…")}}finally{btn.disabled=false}});
+function bindControls(){
+ document.getElementById("mfaEnrollBtn").addEventListener("click",enrollMfa);
+ document.getElementById("mfaVerifyBtn").addEventListener("click",verifyMfa);
+ document.getElementById("mfaCode").addEventListener("keydown",e=>{if(e.key==="Enter")verifyMfa()});document.getElementById("loginBtn").addEventListener("click",async()=>{const email=document.getElementById("adminEmail").value.trim(),password=document.getElementById("adminPassword").value; if(!email||!password){say("請輸入 Email 和密碼。",true);return}const btn=document.getElementById("loginBtn");btn.disabled=true;say("登入中…");try{const {error}=await client.auth.signInWithPassword({email,password});if(error){say("登入失敗："+error.message,true)}else{document.getElementById("adminPassword").value="";say("登入成功，正在驗證管理者權限…")}}finally{btn.disabled=false}});
 document.getElementById("adminPassword").addEventListener("keydown",e=>{if(e.key==="Enter")document.getElementById("loginBtn").click()});
 document.getElementById("logoutBtn").addEventListener("click",async()=>{const {error}=await client.auth.signOut();if(error)say("登出失敗："+error.message,true)});
 g.addEventListener("change",async e=>{const t=e.target;if(t.matches('.chk input[data-i][data-k]')){const i=Number(t.dataset.i),k=t.dataset.k;const fields={w:"copy_done",a:"asset_done",p:"published"};const ok=await updatePost(i,{[fields[k]]:t.checked});if(!ok)t.checked=!t.checked}else if(t.matches('input[type="file"][data-i]')){await uploadFiles(Number(t.dataset.i),Array.from(t.files||[]));t.value=""}});
 cards.addEventListener("change",async e=>{const t=e.target;if(t.matches('input[type="file"][data-i]')){await uploadFiles(Number(t.dataset.i),Array.from(t.files||[]));t.value=""}});
 for(const root of [g,cards])root.addEventListener("click",async e=>{const btn=e.target.closest("button[data-action]");if(!btn)return;const i=Number(btn.dataset.i);if(btn.dataset.action==="remove-image"){await removeImage(i,Number(btn.dataset.j));return}const field=btn.dataset.action==="save-copy"?"copy":btn.dataset.action==="save-mat"?"mat":null;if(!field)return;const section=btn.closest('.cc,.card,.two > div');const textarea=section?.querySelector(`textarea[data-k="${field}"]`);if(!textarea){say("找不到要儲存的文字欄位。",true);return}btn.disabled=true;try{await updatePost(i,{[field]:textarea.value})}finally{btn.disabled=false}})}
 async function init(){renderLayout();paint();if(!window.supabase){setStatus("Supabase 套件載入失敗，請檢查網路",true);return}if(!/^https:\/\/.+\.supabase\.co\/?$/.test(SUPABASE_URL)||SUPABASE_PUBLISHABLE_KEY.startsWith("請填入")){setStatus("請先在 HTML 填入 Project URL 與 Publishable Key",true);return}
-try{client=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);bindControls();client.auth.onAuthStateChange((event,session)=>{if(event==="INITIAL_SESSION"||event==="SIGNED_IN"||event==="SIGNED_OUT"||event==="USER_UPDATED")setTimeout(()=>verifyAdmin(session?.user||null),0)});await loadProgress();subscription=client.channel("green-tea-meta-progress").on("postgres_changes",{event:"*",schema:"public",table:"meta_post_progress"},()=>{loadProgress()}).subscribe(status=>{if(status==="SUBSCRIBED"&&loaded)setStatus(isAdmin?"即時同步已連線｜管理者模式":"即時同步已連線｜唯讀模式");else if(status==="CHANNEL_ERROR"||status==="TIMED_OUT"||status==="CLOSED")setStatus("即時連線中斷，請重新整理網頁",true)});document.addEventListener("visibilitychange",()=>{if(!document.hidden)loadProgress()});window.addEventListener("online",()=>loadProgress())}catch(error){console.error(error);setStatus("連線設定錯誤，請檢查 URL 與公開金鑰",true)}}
+try{client=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);bindControls();client.auth.onAuthStateChange((event,session)=>{if(event==="INITIAL_SESSION"||event==="SIGNED_IN"||event==="SIGNED_OUT"||event==="USER_UPDATED"||event==="MFA_CHALLENGE_VERIFIED")setTimeout(()=>verifyAdmin(session?.user||null),0)});await loadProgress();subscription=client.channel("green-tea-meta-progress").on("postgres_changes",{event:"*",schema:"public",table:"meta_post_progress"},()=>{loadProgress()}).subscribe(status=>{if(status==="SUBSCRIBED"&&loaded)setStatus(isAdmin?"即時同步已連線｜管理者模式":"即時同步已連線｜唯讀模式");else if(status==="CHANNEL_ERROR"||status==="TIMED_OUT"||status==="CLOSED")setStatus("即時連線中斷，請重新整理網頁",true)});document.addEventListener("visibilitychange",()=>{if(!document.hidden)loadProgress()});window.addEventListener("online",()=>loadProgress())}catch(error){console.error(error);setStatus("連線設定錯誤，請檢查 URL 與公開金鑰",true)}}
 init();
 </script>
 </body>
